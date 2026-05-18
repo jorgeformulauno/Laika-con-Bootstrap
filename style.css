@@ -1,38 +1,93 @@
+.seccion-gris {
+    background-color: #F7F7F7;
+    padding: 24px 0 32px;
+}
+/* ════════════════════════════════════════════
+   VARIABLES GLOBALES
+════════════════════════════════════════════ */
+:root {
+    --brand:       #623E86;
+    --brand-dark:  #4e2f6e;
+    --brand-bg:    #f3eeff;
+    --topbar-bg:   #3b1d5f;
+}
 
+/* ════════════════════════════════════════════
+   TOPBAR
+════════════════════════════════════════════ */
+.topbar {
+    background-color: var(--topbar-bg);
+    font-size: .9rem;
+    font-weight: 600;
+}
+.topbar a {
+    color: #fff;
+    text-decoration: none;
+    transition: opacity .2s;
+}
+.topbar a:hover { opacity: .75; }
+
+/* ════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════ */
+.site-header { background-color: var(--brand); }
+
+.site-logo { 
+    height: 125px; 
+    width: auto;
+    object-fit: contain;
+    transition: height 0.2s ease-in-out;
+}
+
+.search-box-custom {
+    max-width: 720px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.search-box-custom .form-control {
+    padding-top: 0.90rem !important;
+    padding-bottom: 0.90rem !important;
+    padding-left: 1.2rem !important;
+    padding-right: 3.2rem !important;
+}
+
+/* ════════════════════════════════════════════
+   BOTÓN PRINCIPAL
+════════════════════════════════════════════ */
 .btn-purple {
-    background-color: #623E86;
+    background-color: var(--brand);
     border: none;
+    color: #fff;
 }
 .btn-purple:hover {
-    background-color: #4e2f6e;
+    background-color: var(--brand-dark);
+    color: #fff;
 }
 
-
-.nav-item.dropdown:hover > .dropdown-menu {
+/* ════════════════════════════════════════════
+   NAVBAR & DROPDOWNS HOVER (DESKTOP)
+════════════════════════════════════════════ */
+.nav-item.dropdown:hover > .dropdown-menu,
+.dropdown-hover:hover > .dropdown-menu {
     display: block;
     margin-top: 0;
 }
+.nav-item.dropdown > .dropdown-toggle::after { transition: transform .2s; }
+.nav-item.dropdown:hover > .dropdown-toggle::after { transform: rotate(180deg); }
 
-/* Flecha del toggle gira al abrir */
-.nav-item.dropdown:hover > .dropdown-toggle::after {
-    transform: rotate(180deg);
-}
-.nav-item.dropdown > .dropdown-toggle::after {
-    transition: transform .2s;
-}
-
-/* Menú principal */
-.nav-item .dropdown-menu {
+.dropdown-menu {
     min-width: 240px;
     border: none;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
     padding: 8px 0;
 }
 
-.nav-item .dropdown-menu .dropdown-item {
-    padding: 12px 20px;
-    font-size: .95rem;
+.dropdown-menu .dropdown-item {
+    padding: 10px 20px;
+    font-size: .9rem;
     color: #333;
     display: flex;
     justify-content: space-between;
@@ -40,68 +95,545 @@
     transition: background .15s, color .15s;
 }
 
-.nav-item .dropdown-menu .dropdown-item:hover {
-    background-color: #f3eeff;
-    color: #623E86;
+.dropdown-menu .dropdown-item:hover {
+    background-color: var(--brand-bg);
+    color: var(--brand);
 }
 
-/* ══════════════════════════════════════════
-   SUBMENÚ ANIDADO (hover abre a la derecha)
-══════════════════════════════════════════ */
-.dropdown-submenu {
-    position: relative;
-}
-
+/* Submenú anidado */
+.dropdown-submenu { position: relative; }
 .dropdown-submenu > .dropdown-menu {
     top: 0;
     left: 100%;
-    margin-top: 0;
     display: none;
     min-width: 220px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
-    border: none;
-    padding: 8px 0;
 }
 
-.dropdown-submenu:hover > .dropdown-menu {
-    display: block;
-}
-
+.dropdown-submenu:hover > .dropdown-menu { display: block; }
 .dropdown-submenu:hover > .dropdown-item {
-    background-color: #f3eeff;
-    color: #623E86;
+    background-color: var(--brand-bg);
+    color: var(--brand);
 }
 
-.carousel-item img {
-    width: 100%;
-    height: auto;       /* respeta la proporción original de cada banner */
+/* Dropdown ciudades */
+.ciudad-dropdown {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* ════════════════════════════════════════════
+   MENÚ MÓVIL – OFFCANVAS ACORDEÓN
+════════════════════════════════════════════ */
+
+/* Botón de primer nivel (Perro, Gato, Servicios) */
+.accordion-button.mobile-menu-btn {
+    font-size: .95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    background-color: #fff;
+    padding: 14px 16px;
+    box-shadow: none !important;
+}
+
+.accordion-button.mobile-menu-btn:not(.collapsed) {
+    color: var(--brand);
+    background-color: var(--brand-bg);
+}
+
+/* Botón de segundo nivel (Alimento, Juguetes…) */
+.accordion-button.mobile-sub-btn {
+    font-size: .88rem;
+    font-weight: 500;
+    color: #333;
+    background-color: #fafafa;
+    padding: 11px 16px 11px 32px;
+    box-shadow: none !important;
+}
+
+.accordion-button.mobile-sub-btn:not(.collapsed) {
+    color: var(--brand);
+    background-color: var(--brand-bg);
+}
+
+/* Flecha del acordeón en color de marca cuando abierto */
+.accordion-button:not(.collapsed)::after {
+    filter: none;
+}
+
+/* Links hoja (categorías finales) */
+.mobile-leaf-link {
     display: block;
+    padding: 8px 0;
+    color: #555;
+    text-decoration: none;
+    font-size: .85rem;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color .15s;
+}
+.mobile-leaf-link:last-child { border-bottom: none; }
+.mobile-leaf-link:hover { color: var(--brand); }
+
+/* Links planos (Promociones, Tiendas, Laika Member) */
+a.mobile-menu-btn {
+    font-size: .95rem;
+    padding: 14px 16px;
+}
+a.mobile-menu-btn:hover { color: var(--brand) !important; }
+
+/* Quitar bordes internos del accordion flush anidado */
+.accordion-flush .accordion-item {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
 }
 
+/* ════════════════════════════════════════════
+   CARRUSELES (UNIFICADOS)
+════════════════════════════════════════════ */
 .carousel-dots {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 6px;
     padding: 10px 0 8px;
-    background: #fff;
+    background: transparent; 
 }
 
-.carousel-dots button {
-    width: 12px !important;
-    height: 12px !important;
-    border-radius: 50% !important;
-    background-color: transparent !important;
-    border: 2px solid #623E86 !important;
-    opacity: 1 !important;
+.dot-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--brand);
+    background-color: transparent;
     padding: 0;
     cursor: pointer;
     flex-shrink: 0;
-    display: inline-block;
-    transition: background-color .2s, border-color .2s;
+    transition: background-color .3s;
 }
 
-.carousel-dots button.active {
-    background-color: #623E86 !important;
+.dot-btn.active { background-color: var(--brand); }
+.dot-btn:focus { outline: none; box-shadow: none; }
+
+.pet-card { min-height: 220px; }
+.bg-perro { background-color: #F3EE8B; }
+.bg-gato { background-color: #A2E4F6; }
+
+.pet-card-img {
+    width: 45%;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.pet-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-card h2 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
+
+.pet-card p {
+    font-size: .9rem;
+}
+
+/* ════════════════════════════════════════════
+   TARJETAS DE PRODUCTOS
+════════════════════════════════════════════ */
+.card {
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    transition: transform .2s;
+}
+
+.card-title {
+    font-size: .85rem;
+    margin-bottom: 5px;
+}
+
+.card-text {
+    font-weight: 700;
+    font-size: .95rem;
+    height: 45px;
+    overflow: hidden;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.member-price {
+    font-size: .8rem;
+    color: var(--brand);
+    font-weight: 700;
+}
+
+.badge-size {
+    background-color: #f3e5f5;
+    color: var(--brand);
+    border: 1px solid #d1c4e9;
+    margin-right: 5px;
+    font-size: .7rem;
+}
+
+/* ════════════════════════════════════════════
+   CARRUSEL DE MARCAS
+════════════════════════════════════════════ */
+.brand-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    height: 160px;
+    transition: box-shadow .2s;
+}
+
+.brand-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+.brand-card img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+/* Utilitario color de marca */
+.text-brand { color: var(--brand); }
+
+/* ════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════ */
+.footer-laika {
+    background-color: #fff;
+    border-top: 1px solid #e8e8e8;
+}
+
+.footer-top { padding: 24px 0 0; }
+.footer-logo { height: 56px; object-fit: contain; }
+
+.footer-links { padding: 32px 0; }
+.footer-col-title {
+    color: var(--brand);
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 16px;
+}
+
+.footer-list { list-style: none; padding: 0; margin: 0; }
+.footer-list li { margin-bottom: 12px; }
+.footer-list a {
+    color: #555;
+    text-decoration: none;
+    font-size: .9rem;
+    transition: color .15s;
+}
+.footer-list a:hover { color: var(--brand); }
+
+.footer-subscribe-text {
+    font-size: .9rem;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.footer-subscribe-form {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.footer-email-input {
+    flex: 1;
+    border: none;
+    padding: 10px 14px;
+    font-size: .9rem;
+    outline: none;
+    color: #333;
+}
+
+.footer-email-btn {
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--brand);
+    color: #fff;
+    transition: background-color .2s;
+}
+.footer-email-btn:hover { background-color: var(--brand-dark); }
+
+/* Barra legal */
+.footer-legal {
+    background-color: #f8f8f8;
+    border-top: 1px solid #e8e8e8;
+    padding: 20px 0;
+}
+.footer-legal-top { margin-bottom: 12px; }
+.footer-legal-top p { font-size: .8rem; color: #666; margin: 0 0 4px; }
+.footer-legal-top a { color: var(--brand); text-decoration: none; }
+.footer-legal-top a:hover { text-decoration: underline; }
+
+.footer-legal-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.footer-legal-bottom > span { font-size: .8rem; color: #666; }
+
+.footer-payments {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.4rem;
+    color: #888;
+}
+
+/* Ciudad botón wrapper */
+.ciudad-btn-wrap {
+    position: absolute;
+    right: 3rem;
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE MÓVIL
+════════════════════════════════════════════ */
+@media (max-width: 767.98px) {
+
+    /* Evitar overflow horizontal global */
+    body, html {
+        overflow-x: hidden;
+    }
+
+    /* ── Header móvil ── */
+    .site-logo-mobile {
+        height: 42px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .search-box-custom {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
+    /* ── Navbar: ocultar en móvil (se reemplaza por offcanvas) ── */
+    .navbar {
+        display: none !important;
+    }
+
+    /* ── Banner/slider: sin márgenes laterales ── */
+    .container-xl,
+    .container-fluid {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    #promoCarousel {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    #promoCarousel .carousel-item img {
+        height: 180px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    /* ── Dots del carrusel ── */
+    .dot-btn {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* ── Pet cards: 2 columnas compactas ── */
+    .pet-card {
+        min-height: 130px;
+        border-radius: 10px;
+    }
+
+    .pet-card h2 {
+        font-size: 1rem;
+    }
+
+    .pet-card p {
+        font-size: .75rem;
+        margin-bottom: 8px !important;
+    }
+
+    .pet-card .btn {
+        font-size: .8rem;
+        padding: 6px 14px;
+    }
+
+    .pet-card-img {
+        width: 42%;
+    }
+
+    /* Las 2 columnas de pet-cards lado a lado */
+    .row.g-3 > .col-md-6 {
+        width: 50%;
+    }
+
+    /* ── Sección favoritos ── */
+    .container-xl .p-4 {
+        padding: 12px 4px !important;
+    }
+
+    .container-xl h2 {
+        font-size: 1.1rem;
+    }
+
+    .container-xl > .p-4 p {
+        font-size: .82rem;
+    }
+
+    /* ════════════════════════════════════════════
+       CARRUSEL DE PRODUCTOS – CORRECCIÓN MÓVIL
+       Funciona como Bootstrap carousel normal
+       pero muestra las cards individualmente
+       en scroll horizontal nativo.
+    ════════════════════════════════════════════ */
+
+    /* Wrapper del carrusel: ocultar overflow para que
+       no aparezca scrollbar horizontal en la página */
+    #productCarousel {
+        overflow: visible;
+    }
+
+    /* Convertir el inner en un contenedor flex
+       de scroll horizontal con snapping */
+    #productCarousel .carousel-inner {
+        display: flex !important;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        gap: 0;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+        /* Desactivar las transiciones de Bootstrap */
+        transition: none !important;
+    }
+
+    #productCarousel .carousel-inner::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Cada slide (grupo de 5 cards) se muestra como
+       una fila horizontal continua sin Bootstrap hiding */
+    #productCarousel .carousel-item {
+        /* Sobrescribir visibilidad de Bootstrap */
+        display: flex !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        flex: 0 0 auto;
+        width: auto;
+        /* Sin position relative que rompa el flow */
+        position: static;
+        float: none;
+    }
+
+    /* La fila interna de cada slide: no wrappear,
+       inline flex para que las cards queden en línea */
+    #productCarousel .carousel-item > .row {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 10px;
+        margin: 0;
+        padding: 0 6px;
+    }
+
+    /* Cada columna = una card individual que ocupa ~78vw
+       y hace snap al hacer scroll */
+    #productCarousel .carousel-item > .row > .col {
+        flex: 0 0 78vw;
+        width: 78vw;
+        max-width: 78vw;
+        padding: 0;
+        scroll-snap-align: start;
+    }
+
+    /* Ocultar los controles prev/next en móvil
+       (se navega con el scroll táctil) */
+    #productCarousel .carousel-control-prev,
+    #productCarousel .carousel-control-next {
+        display: none;
+    }
+
+    /* Ocultar los dots del producto carousel en móvil
+       (no tienen sentido con scroll continuo) */
+    #productCarousel .carousel-dots {
+        display: none;
+    }
+
+    /* Cards de productos */
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-img-top {
+        border-radius: 8px 8px 0 0;
+        max-height: 160px;
+        object-fit: contain;
+    }
+
+    .price {
+        font-size: 1rem;
+    }
+
+    .member-price {
+        font-size: .72rem;
+    }
+
+    .card .btn {
+        font-size: .82rem;
+        padding: 8px 12px;
+    }
+
+    /* ── Carrusel de marcas ── */
+    #brandsCarousel .row-cols-5 {
+        --bs-columns: 2;
+    }
+
+    #brandsCarousel .col {
+        width: 50%;
+    }
+
+    .brand-card {
+        height: 100px;
+        padding: 12px 8px;
+    }
+
+    /* ── Footer compacto ── */
+    .footer-links .row > div {
+        width: 50%;
+    }
+
+    .footer-legal-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .footer-top,
+    .footer-links {
+        padding: 16px 0;
+    }
+
+    .footer-logo {
+        height: 40px;
+    }
+
+    /* ── Espaciado secciones ── */
+    .mt-5 {
+        margin-top: 1.5rem !important;
+    }
 }
